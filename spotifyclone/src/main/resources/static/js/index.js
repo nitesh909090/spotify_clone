@@ -9,7 +9,7 @@ async function searchSong() {
     const query = document.getElementById("searchInput").value;
 
     const response = await fetch(
-        `https://itunes.apple.com/search?term=${query}&entity=song&limit=20`
+        api key
     );
 
     const data = await response.json();
