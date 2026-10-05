@@ -2,15 +2,17 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Poore folder content ko direct copy karo bina naam ke jhanjhat ke
+# Sabse pehle poore folder ko copy karo
 COPY . .
 
-# Subfolder ke andar ja kar maven build run karo
-RUN cd spotifyclone && mvn clean package -DskipTests
+# Yeh command automatic subfolder ke andar ja kar pom.xml dhoondh legi (chahe naam kuch bhi ho)
+RUN cd $(find . -maxdepth 2 -name "pom.xml" -exec dirname {} \;) && mvn clean package -DskipTests
 
 # --- Stage 2: Runtime stage ---
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /app/spotifyclone/target/*.jar app.jar
+
+# Yeh automatic bne hue jar file ko runtime mein copy kar lega
+COPY --from=build /app/**/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
