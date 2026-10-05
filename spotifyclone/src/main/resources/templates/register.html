@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Spotify Register</title>
+
+    <link rel="stylesheet"
+          href="/css/register.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="register-box">
+
+            <h1>Spotify</h1>
+
+            <h2>Create your account</h2>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                autocomplete="username"
+            >
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                autocomplete="email"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="new-password"
+            >
+
+            <button
+                type="button"
+                onclick="registerUser()">
+                Register
+            </button>
+
+            <p>
+                Already have an account?
+                <a href="/login">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="/js/register.js"></script>
+
+</body>
+
+</html>
