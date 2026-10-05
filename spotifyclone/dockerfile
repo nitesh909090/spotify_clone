@@ -1,17 +1,16 @@
-# --- Stage 1: Build stage (Maven setup) ---
+# --- Stage 1: Build stage ---
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Files ko copy karne ke liye subfolder ka path
-COPY spotifyclone/pom.xml .
-COPY spotifyclone/src ./src
+# Poore folder content ko direct copy karo bina naam ke jhanjhat ke
+COPY . .
 
-# Project build karne ke liye
-RUN mvn clean package -DskipTests
+# Subfolder ke andar ja kar maven build run karo
+RUN cd spotifyclone && mvn clean package -DskipTests
 
 # --- Stage 2: Runtime stage ---
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/spotifyclone/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
